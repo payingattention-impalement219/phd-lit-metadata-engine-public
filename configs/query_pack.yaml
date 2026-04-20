@@ -1,0 +1,134 @@
+name: generic-literature-metadata-search
+description: Editable public example query pack for metadata-only scholarly searching.
+
+# Replace the placeholder concepts with your own review topic before running.
+# Suggested protocol shape:
+#   Pillar 1 = population, condition, phenomenon, or core concept
+#   Pillar 2 = method, intervention, exposure, technology, or second concept
+#   Pillar 3 = optional task, outcome, or context for supplementary sweeps
+
+query: >
+  ("concept A" OR "concept A synonym")
+  AND
+  ("concept B" OR "concept B synonym")
+
+custom_search_strings:
+  - >
+    ("broader concept A" OR "related population term")
+    AND
+    ("broader concept B" OR "related method term")
+  - >
+    ("specific subtopic" OR "narrower concept A")
+    AND
+    ("outcome term" OR "task term")
+
+source_specific_search_strings:
+  pubmed:
+    - >
+      ("concept A"[TIAB] OR "concept A synonym"[TIAB] OR "controlled vocabulary term"[MeSH Terms])
+      AND
+      ("concept B"[TIAB] OR "concept B synonym"[TIAB] OR "method term"[TIAB])
+  scopus:
+    - >
+      TITLE-ABS-KEY(
+        ("concept A" OR "concept A synonym" OR "related population term")
+        AND
+        ("concept B" OR "concept B synonym" OR "related method term")
+      )
+  web_of_science:
+    - >
+      TS=(("concept A" OR "concept A synonym" OR "related population term")
+      AND ("concept B" OR "concept B synonym" OR "related method term"))
+  ieee_xplore:
+    - >
+      ("concept A" OR "concept A synonym")
+      AND
+      ("concept B" OR "method term" OR "technology term")
+  acm_digital_library:
+    - >
+      (Title:("concept A" OR "concept A synonym")
+      OR Abstract:("concept A" OR "related population term"))
+      AND
+      Abstract:("concept B" OR "method term" OR "technology term")
+  arxiv:
+    - concept A concept B
+    - concept A method term
+    - subtopic outcome term
+  medrxiv:
+    - concept A concept B
+    - concept A outcome term
+  biorxiv:
+    - concept A method term
+    - subtopic technology term
+  europe_pmc:
+    - >
+      ("concept A" OR "concept A synonym" OR "related population term")
+      AND
+      ("concept B" OR "concept B synonym" OR "related method term")
+  openalex:
+    - >
+      ("concept A" OR "concept A synonym") AND ("concept B" OR "method term")
+  crossref:
+    - >
+      ("concept A" OR "concept A synonym") AND ("concept B" OR "method term")
+  semantic_scholar:
+    - >
+      ("concept A" OR "concept A synonym") AND ("concept B" OR "method term")
+  doaj:
+    - >
+      ("concept A" OR "concept A synonym") AND ("concept B" OR "method term")
+  core:
+    - >
+      ("concept A" OR "concept A synonym") AND ("concept B" OR "method term")
+
+pillar_3_task_add_on:
+  description: >
+    Optional task/outcome block for targeted sweeps or modest tightening. Do not add this
+    to the main search unless a database returns an unmanageably large set.
+  pubmed: >
+    AND ("task term"[TIAB] OR "outcome term"[TIAB] OR "context term"[TIAB])
+  scopus: >
+    AND TITLE-ABS-KEY("task term" OR "outcome term" OR "context term")
+  web_of_science: >
+    AND TS=("task term" OR "outcome term" OR "context term")
+  generic: >
+    AND ("task term" OR "outcome term" OR "context term")
+
+keywords:
+  - concept A
+  - concept B
+  - task term
+  - outcome term
+  - population term
+
+date_range:
+  start_year: 2018
+  end_year: 2026
+
+sources:
+  pubmed: true
+  europe_pmc: true
+  openalex: true
+  crossref: true
+  semantic_scholar: true
+  doaj: true
+  core: false
+  scopus: false
+  web_of_science: false
+  ieee_xplore: false
+  acm_digital_library: false
+  arxiv: true
+  medrxiv: false
+  biorxiv: false
+
+filters:
+  language: ""
+  publication_types:
+    - journal-article
+    - review
+  require_abstract: false
+  require_keywords: false
+  include_preprints: false
+
+limits:
+  max_results_per_source: 25

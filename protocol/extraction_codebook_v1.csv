@@ -1,0 +1,76 @@
+field_name,section,data_type,controlled_vocabulary,required,description,missing_allowed,derived_usage
+record_id,Administrative,string,,yes,Unique study identifier.,no,Linkage key.
+source_database,Administrative,categorical,pubmed|medline|europe_pmc|openalex|crossref|semantic_scholar|doaj|core|scopus|web_of_science|ieee_xplore|acm_digital_library|arxiv|medrxiv|biorxiv|manual_other,yes,Database/source of canonical record.,no,Source summaries.
+source_file,Administrative,string,,no,Manual import filename/path where applicable.,yes,Audit trail.
+dedupe_group_id,Administrative,string,,no,Duplicate cluster identifier.,yes,Deduplication reporting.
+duplicate_status,Administrative,categorical,unique|canonical|duplicate,yes,Duplicate status.,no,Deduplication flow.
+screening_priority,Screening,integer,1|2|3|4|5|6|7|8|9,no,Automation-assisted screening priority.,yes,Queue ordering.
+reviewed_status,Screening,categorical,Not reviewed|In progress|Reviewed,yes,Human screening status.,no,Screening progress.
+title_abstract_decision,Screening,categorical,Include|Exclude|Maybe/Unclear|Duplicate,no,Title/abstract decision.,yes,Screening counts.
+exclusion_reason,Screening,categorical,Wrong concept/population|Wrong intervention/technology|Not AI/ML|Not review-topic relevant|Animal/non-human only|Non-research item|Duplicate|No abstract/insufficient information|Full text unavailable|Other,no,Main exclusion reason.,yes,PRISMA-ScR exclusion reasons.
+reviewer,Screening,string,,no,Reviewer identifier.,yes,Audit trail.
+review_date,Screening,date,YYYY-MM-DD,no,Date of screening decision.,yes,Audit trail.
+reviewer_notes,Screening,string,,no,Reviewer notes.,yes,Audit trail.
+full_text_sought,Screening,categorical,Yes|No|Not applicable,no,Whether full text was sought.,yes,Eligibility flow.
+full_text_retrieved,Screening,categorical,Yes|No|Not applicable,no,Whether full text was retrieved.,yes,Eligibility flow.
+full_text_decision,Screening,categorical,Include|Exclude|Maybe/Unclear|Not assessed,no,Full-text decision.,yes,Eligibility flow.
+final_inclusion,Screening,categorical,Included|Excluded|Pending,yes,Final inclusion status.,no,Included-set definition.
+charting_status,Screening,categorical,Not charted|In charting|Charted|Not applicable,yes,Charting status.,no,Charting progress.
+title,Bibliographic,string,,yes,Paper title.,no,Screening and dedupe.
+abstract,Bibliographic,string,,no,Abstract text.,yes,Screening and task mapping.
+authors,Bibliographic,string,,no,Author list.,yes,Bibliographic reporting.
+publication_year,Bibliographic,integer,1900-2100,yes,Publication year.,no,Temporal indices.
+journal_or_venue,Bibliographic,string,,no,Journal/conference/venue.,yes,Venue summaries.
+publication_type,Bibliographic,categorical,journal_article|conference_paper|review|systematic_review|preprint|book_chapter|thesis|other|unclear,no,Publication type.,yes,Evidence mapping.
+doi,Bibliographic,string,,no,Digital Object Identifier.,yes,Deduplication.
+pmid,Bibliographic,string,,no,PubMed identifier.,yes,Deduplication.
+pmcid,Bibliographic,string,,no,PubMed Central identifier.,yes,Deduplication.
+country_first_author,Study context,string,,no,Country of first author or lead institution.,yes,Geographic summaries.
+study_setting,Study context,categorical,clinical|community|laboratory|online|repository|simulation|unclear|other,no,Study setting.,yes,Context mapping.
+population_group,Study context,categorical,adult|paediatric|mixed_human|animal|synthetic|unclear|other,no,Population studied.,yes,Eligibility/context mapping.
+review_condition_or_concept,Study context,categorical,primary_concept|secondary_concept|mixed_concept|not_review_topic|unclear|other,yes,Primary condition, population, phenomenon, or review concept.,no,Concept subgroup summaries.
+task_primary,Task,categorical,classification|assessment|segmentation|monitoring|optimisation|prediction|treatment_response|explainability|generative|fairness_eval|federated|other|unclear,yes,Primary task, role, or review-relevant function.,no,Task assignment.
+task_secondary,Task,string,,no,Secondary tasks separated by semicolon.,yes,Non-exclusive task assignment.
+outcome_target,Task,string,,no,Prediction/classification endpoint.,yes,Outcome mapping.
+standardised_scale_used,Task,binary,0|1,no,Standardised scale, score, or assessment instrument used.,yes,Assessment summaries.
+treatment_response_outcome,Task,binary,0|1,no,Treatment response/outcome studied.,yes,Treatment-response summaries.
+prognosis_or_trajectory_outcome,Task,binary,0|1,no,Prognosis/trajectory modelled.,yes,Prognosis gap/task.
+dataset_name,Dataset/sample,string,,no,Dataset name if reported.,yes,Dataset reporting.
+sample_size_total,Dataset/sample,integer,>=0,no,Total sample size/images/participants.,yes,Sample-size summaries.
+modality_domain_specific_imaging,Data modality,binary,0|1,yes,Domain-specific imaging used.,no,MDI.
+modality_standard_photograph,Data modality,binary,0|1,yes,Standard photograph/image used.,no,MDI.
+modality_specialist_imaging,Data modality,binary,0|1,yes,Specialist imaging modality used.,no,MDI.
+modality_contextual_image,Data modality,binary,0|1,yes,Contextual image or field photograph used.,no,MDI.
+modality_histopathology,Data modality,binary,0|1,yes,Histopathology used.,no,MDI.
+modality_lab_biomarker,Data modality,binary,0|1,yes,Lab/biomarker data used.,no,MDI.
+modality_ehr_text,Data modality,binary,0|1,yes,EHR text used.,no,MDI.
+modality_structured_clinical,Data modality,binary,0|1,yes,Structured clinical metadata used.,no,MDI.
+modality_genomic,Data modality,binary,0|1,yes,Genomic, molecular, or other omics data used.,no,MDI.
+external_validation,Rigour,binary,0|1,yes,External validation reported.,no,MRI item.
+kfold_cv,Rigour,binary,0|1,yes,K-fold cross-validation reported.,no,MRI item.
+confidence_intervals,Rigour,binary,0|1,yes,Confidence intervals reported.,no,MRI item.
+comparator_model,Rigour,binary,0|1,yes,Comparator/baseline model reported.,no,MRI item.
+human_vs_ai_comparison,Rigour,binary,0|1,yes,Human-vs-AI comparison reported.,no,MRI item.
+error_analysis,Rigour,binary,0|1,yes,Error/failure analysis reported.,no,MRI item.
+code_availability,Rigour,binary,0|1,yes,Code availability reported.,no,MRI item.
+sample_size_justification,Rigour,binary,0|1,yes,Sample-size justification reported.,no,MRI item.
+model_family,Model,categorical,cnn|transformer|gan|diffusion|classical_ml|ensemble|hybrid|other|unclear,yes,Primary model family.,no,MFC.
+model_architecture,Model,string,,no,Specific architecture/model.,yes,Narrative synthesis.
+performance_metric_primary,Model,string,,no,Primary performance metric.,yes,Performance mapping.
+performance_value_primary,Model,numeric,,no,Primary metric value.,yes,Performance summaries.
+skin_tone_subgroup_performance,Fairness,binary,0|1,yes,Skin-tone subgroup performance reported.,no,FRI item.
+ethnicity_subgroup_performance,Fairness,binary,0|1,yes,Ethnicity subgroup performance reported.,no,FRI item.
+sex_subgroup_performance,Fairness,binary,0|1,yes,Sex subgroup performance reported.,no,FRI item.
+age_subgroup_performance,Fairness,binary,0|1,yes,Age subgroup performance reported.,no,FRI item.
+fairness_metric_reported,Fairness,binary,0|1,yes,Any fairness metric reported.,no,FRI item.
+federated_training,Privacy/governance,binary,0|1,yes,Federated training used.,no,PGI item and federated gap.
+privacy_technique,Privacy/governance,binary,0|1,yes,Differential privacy/secure aggregation/homomorphic encryption reported.,no,PGI item.
+governance_framework,Privacy/governance,binary,0|1,yes,GDPR/POPIA/HIPAA or governance framework referenced.,no,PGI item.
+ethics_approval_reported,Privacy/governance,binary,0|1,yes,IRB/ethics approval reported.,no,PGI item.
+gap_prognosis,Gap flags,binary,0|1,yes,Study addresses prediction/prognosis/trajectory gap.,no,Coverage_g and GapScore.
+gap_generative,Gap flags,binary,0|1,yes,Study addresses generative modelling gap.,no,Coverage_g and GapScore.
+gap_multimodal,Gap flags,binary,0|1,yes,Study addresses multimodal integration gap.,no,Coverage_g and GapScore.
+gap_fairness,Gap flags,binary,0|1,yes,Study addresses fairness/subgroup gap.,no,Coverage_g and GapScore.
+gap_federated,Gap flags,binary,0|1,yes,Study addresses federated or privacy-preserving methods gap.,no,Coverage_g and GapScore.
+automated_triage_flag,Validation,binary,0|1,no,Automated triage include flag in validation pilot.,yes,Triage sensitivity/specificity/kappa.
+human_screening_flag,Validation,binary,0|1,no,Human include flag in validation pilot.,yes,Triage sensitivity/specificity/kappa.
