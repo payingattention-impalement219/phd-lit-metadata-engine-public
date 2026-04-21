@@ -4,6 +4,10 @@ A local scholarly metadata harvesting app for PhD literature searches. It collec
 
 It does not download PDFs or scrape full papers.
 
+## License
+
+This repository is released under the MIT License. See [LICENSE](LICENSE).
+
 ## What It Covers
 
 Open/API-first sources:
@@ -94,6 +98,44 @@ Restricted or entitlement-based sources:
 - ACM Digital Library is import/manual.
 
 ## Quick Start
+
+### Docker Quick Start
+
+If you want a reproducible local setup without installing Python and Node directly, use Docker Compose:
+
+```bash
+git clone https://github.com/<your-org-or-user>/phd-lit-metadata-engine.git
+cd phd-lit-metadata-engine
+cp .env.example .env
+docker compose up --build
+```
+
+Then open:
+
+- Web app: `http://127.0.0.1:5173`
+- Backend API docs: `http://127.0.0.1:8000/docs`
+
+The Compose stack includes:
+
+- `backend`: FastAPI application
+- `frontend`: React + Vite dashboard
+- `notebook`: optional Jupyter Lab service for the pre-generated analysis notebook
+
+Start the notebook service only when needed:
+
+```bash
+docker compose --profile notebook up --build
+```
+
+Then open:
+
+- Jupyter Lab: `http://127.0.0.1:8888`
+
+Stop the stack with:
+
+```bash
+docker compose down
+```
 
 ### Homebrew Setup On macOS
 
@@ -189,6 +231,8 @@ The web interface includes:
 
 If Jupyter or VS Code is not installed, the interface shows setup guidance instead of failing silently.
 
+In Docker deployments, the notebook launcher buttons are less useful because they try to spawn desktop applications from inside the container. For container-based analysis, prefer the dedicated `notebook` service in `docker-compose.yml` and open Jupyter Lab in the browser at `http://127.0.0.1:8888`.
+
 If Jupyter opens as `Internal Server Error` or the app reports that Jupyter is unavailable, install it into the project environment:
 
 ```bash
@@ -237,6 +281,8 @@ You can update these in either of two ways:
 The app never displays saved API keys in full. It only shows whether a value is configured and a short masked preview.
 
 For public publishing, keep `.env`, local databases, generated reports, manual citation exports, and reviewer screening files private. See `SECURITY.md` and `docs/public_release.md` before making a repository public.
+
+If you use Docker Compose, generated SQLite data, exports, and notebook outputs stay in the mounted local `data/`, `reports/`, and `notebooks/` directories rather than disappearing inside a container.
 
 After changing API keys while the app is running, new searches use the updated values. If something still looks stale, restart the local app with:
 
